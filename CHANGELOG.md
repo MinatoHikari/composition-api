@@ -1,3 +1,65 @@
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/vuejs/composition-api/compare/v1.7.0...v1.7.1) (2022-09-23)
+
+
+### Bug Fixes
+
+* **types:** add `Date` to `BaseTypes` ([#957](https://github.com/vuejs/composition-api/issues/957)) ([c3f4e91](https://github.com/vuejs/composition-api/commit/c3f4e91))
+* **types:** add types to package export ([#968](https://github.com/vuejs/composition-api/issues/968)) ([39f2036](https://github.com/vuejs/composition-api/commit/39f2036))
+
+
+
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/vuejs/composition-api/compare/v1.6.3...v1.7.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* add note about Vue 2.7 ([6117f81](https://github.com/vuejs/composition-api/commit/6117f81))
+
+
+
+<a name="1.6.3"></a>
+## [1.6.3](https://github.com/vuejs/composition-api/compare/v1.6.2...v1.6.3) (2022-06-24)
+
+
+### Features
+
+* support Vue3 style app-level provide ([#945](https://github.com/vuejs/composition-api/issues/945)) ([d167b9b](https://github.com/vuejs/composition-api/commit/d167b9b))
+
+
+
+<a name="1.6.2"></a>
+## [1.6.2](https://github.com/vuejs/composition-api/compare/v1.6.1...v1.6.2) (2022-05-23)
+
+
+### Features
+
+* **types:** fix props JSDoc loss ([#935](https://github.com/vuejs/composition-api/issues/935)) ([fcee038](https://github.com/vuejs/composition-api/commit/fcee038))
+
+
+
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/vuejs/composition-api/compare/v1.6.0...v1.6.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* **inject:** allow default value to be undefined ([#930](https://github.com/vuejs/composition-api/issues/930)) ([17d3fc1](https://github.com/vuejs/composition-api/commit/17d3fc1))
+
+
+
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/vuejs/composition-api/compare/v1.5.0...v1.6.0) (2022-04-27)
+
+
+### Bug Fixes
+
+* nullish check for vnode ([#925](https://github.com/vuejs/composition-api/issues/925)) ([293f03b](https://github.com/vuejs/composition-api/commit/293f03b))
+* **type:** align watch types with vue3 ([#927](https://github.com/vuejs/composition-api/issues/927)) ([679f5c2](https://github.com/vuejs/composition-api/commit/679f5c2))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/vuejs/composition-api/compare/v1.4.10...v1.5.0) (2022-04-25)
 

@@ -7,6 +7,9 @@
 
 [English](./README.md) | 中文 ・ [**组合式 API 文档**](https://v3.cn.vuejs.org/guide/composition-api-introduction.html)
 
+
+> ⚠️ 随着 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)的发布，它内置了Composition API，**你不再需要这个插件了**。因此，这个插件已经进入维护模式，将只支持Vue 2.6 或更早的版本。本项目将在 2022 年底达到生命终点（EOL）。
+
 ## 安装
 
 ### NPM
@@ -40,7 +43,7 @@ import { ref, reactive } from '@vue/composition-api'
 <!--cdn-links-start-->
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
-<script src="https://cdn.jsdelivr.net/npm/@vue/composition-api@1.5.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vue/composition-api@1.7.1"></script>
 ```
 <!--cdn-links-end-->
 
@@ -179,34 +182,11 @@ b.list[1].count === 1 // true
 
 </details>
 
-<details>
-<summary>
-⚠️ <code>set</code> 和 <code>del</code> 添加与刪除响应式属性变通方案
-</summary>
-
-> ⚠️ 警告: `set` 和 `del` 并非 Vue 3 的一部分。由于 [Vue 2.x 响应式系统的限制](https://vuejs.org/v2/guide/reactivity.html#For-Objects)，我们在插件中提供该 API 作为添加响应式属性的一个变通方案。在 Vue 3 中，你只需要直接为属性赋值即可。
-
-```ts
-import { reactive, set } from '@vue/composition-api'
-
-const a = reactive({
-  foo: 1
-})
-
-// 添加新的响应式属性
-set(a, 'bar', 1)
-
-// 刪除属性并触发响应式更新
-del(a, 'bar')
-```
-
-</details>
-
 ### 模板 Refs
 
 <details>
 <summary>
-✅ 字符串 ref && 从 <code>setup()</code> 返回 ref
+✅ 在`模板`中使用字符串 ref && 从 <code>setup()</code> 返回 ref
 </summary>
 
 ```html
@@ -236,7 +216,7 @@ del(a, 'bar')
 
 <details>
 <summary>
-✅ 字符串 ref && 从 <code>setup()</code> 返回 ref && 渲染函数 / JSX
+✅ 在<code>render()</code>中使用字符串 ref && 从 <code>setup()</code> 返回 ref
 </summary>
 
 ```jsx
@@ -264,7 +244,7 @@ export default {
 
 <details>
 <summary>
-❌ 函数 ref
+❌ 函数式 ref
 </summary>
 
 ```html
@@ -289,7 +269,7 @@ export default {
 
 <details>
 <summary>
-❌ 在 <code>setup()</code> 中的渲染函数 / JSX
+❌ 在 <code>setup()</code> 中返回的`渲染函数 / JSX`
 </summary>
 
 ```jsx
@@ -366,6 +346,32 @@ declare module '@vue/composition-api' {
 
 </details>
 
+<details>
+<summary>
+⚠️ <code>set</code> 和 <code>del</code> 添加与刪除响应式属性变通方案
+</summary>
+
+> ⚠️ 警告: `set` 和 `del` 并非 Vue 3 的一部分。由于 [Vue 2.x 响应式系统的限制](https://vuejs.org/v2/guide/reactivity.html#For-Objects), 我们在这里提供它们作为一种变通方案。
+> 在 Vue 2中，你将需要调用`set` 去追踪`object`上新的属性 (与`Vue.set`类似，但用于由 Composition API 创建的`reactive objects`)。在 Vue 3 中，你只需要像对待普通对象一样直接为属性赋值即可。
+> 
+> 同样地, 在 Vue 2 中你将需要调用`del`去 [确保响应式对象中属性的删除将触发视图更新](https://vuejs.org/v2/api/#Vue-delete) (与`Vue.delete`类似，但用于由 Composition API 创建的`reactive objects`)。在Vue3中，你只需要通过调用 `delete foo.bar` 来删除它们。
+
+```ts
+import { reactive, set, del } from '@vue/composition-api'
+
+const a = reactive({
+  foo: 1
+})
+
+// 添加新的响应式属性
+set(a, 'bar', 1)
+
+// 刪除属性并触发响应式更新
+del(a, 'bar')
+```
+
+</details>
+
 ### Watch
 
 <details>
@@ -407,6 +413,38 @@ app2.component('Bar', Bar) // 相当于 Vue.use('Bar', Bar)
 ```
 
 </details>
+
+### `createElement` / `h`
+
+<details>
+<summary>
+⚠️ <code>createElement</code> / <code>h</code> 变通方案
+</summary>
+
+<br>
+
+在 Vue2中 `createElement` / `h` 只能通过 `render()` 函数访问。要在 `render()`之外使用它, 你可以显式地给它绑定一个组件实例。
+
+> :warning: **警告**: 此功能是作为 Vue 2 的变通方法提供的，它不是 Vue 3 API 的一部分。
+
+```jsx
+import { h as _h } from '@vue/composition-api'
+
+export default {
+  setup() {
+    const vm = getCurrentInstance()
+    const h = _h.bind(vm)
+
+    return () =>
+      h('div', {
+        ref: 'root',
+      })
+  },
+}
+```
+
+</details>
+
 
 ### `shallowReadonly`
 
